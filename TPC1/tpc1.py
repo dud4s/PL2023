@@ -6,40 +6,21 @@ def add_dict(d, v):
     if v in d:
         d[v] += 1
     else: d[v] = 1
-    
-# Creates a gender distribution
-def gender_dist(data):
+
+def create_dist_by_column(data, column, period):
     d = {}
     for l in data:
+        x = l[column]
+        if period != 0:
+            x = get_interval(int(l[column]), period)
         if int(l[-1]) == 1:
-            add_dict(d, l[1])
+            add_dict(d, x)
     return d
 
 def get_interval(value, k):
     min_range = value - value % k 
     max_range = min_range + k-1
     return f"[{str(min_range)}-{str(max_range)}]"
-
-# Creates an age distribution 
-def age_dist(data, k):
-    d = {}
-    for l in data:
-        age = int(l[0])
-        s = get_interval(age, k)
-        if int(l[-1]) == 1:
-            add_dict(d, s)
-    return d
-
-# Creates a cholesterol distribution, with a given k as an age interval
-def cholesterol_dist(data, k):
-    d = {}
-    for l in data:
-        cholesterol = int(l[0])
-        s = get_interval(cholesterol, k)
-        if int(l[-1]) == 1:
-            add_dict(d, s)
-    return d
-
 
 # Displays a given distribution (dictionary) as a table, followed by it's headers
 def display_dist(d, headers):
@@ -68,11 +49,11 @@ print("                   -----------")
 while True:
     op = int(input('Type of Distribution:\n1 - Gender\n2 - Age\n3 - Cholesterol\n4 - Exit\nOption: '))
     if op == 1:
-        display_dist(gender_dist(data), ['Gender', 'Number of ill persons (af)'])
+        display_dist(create_dist_by_column(data, 1, 0), ['Gender', 'Number of ill persons (af)'])
     elif op == 2:
-        display_dist(age_dist(data, 5), ['Age', 'Number of ill persons (af)'])
+        display_dist(create_dist_by_column(data, 0, 5), ['Age', 'Number of ill persons (af)'])
     elif op == 3:
-        display_dist(cholesterol_dist(data, 10), ['Cholesterol Levels', 'Number of ill persons (af)'])
+        display_dist(create_dist_by_column(data, 3, 10), ['Cholesterol Levels', 'Number of ill persons (af)'])
     elif op == 4:
         break
 
