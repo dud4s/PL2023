@@ -6,10 +6,11 @@ import matplotlib as plt
 def gender_dist(data):
     d = {}
     for l in data:
-        if l[1] in d:
-            d[l[1]] += 1
-        else:
-            d[l[1]] = 0
+        if int(l[-1]) == 1:
+            if l[1] in d:
+                d[l[1]] += 1
+            else:
+                d[l[1]] = 1
     return d
 
 def get_interval(value, k):
@@ -23,10 +24,11 @@ def age_dist(data, k):
     for l in data:
         age = int(l[0])
         s = get_interval(age, k)
-        if s in d:
-            d[s] += 1
-        else:
-            d[s] = 0
+        if int(l[-1]) == 1:
+            if s in d:
+                d[s] += 1
+            else:
+                d[s] = 1
     return d
 
 # Creates a cholesterol distribution, with a given k as an age interval
@@ -35,9 +37,10 @@ def cholesterol_dist(data, k):
     for l in data:
         cholesterol = int(l[0])
         s = get_interval(cholesterol, k)
-        if s in d:
-            d[s] += 1
-        else: d[s] = 0
+        if int(l[-1]) == 1:
+            if s in d:
+                d[s] += 1
+            else: d[s] = 1
     return d
 
 
@@ -59,7 +62,6 @@ with open("myheart.csv", 'r') as file:
         row = []
         for param in l.split(','):
             row.append(param)
-        row.pop(-1)
         data.append(row)
     data.pop(0)
 
