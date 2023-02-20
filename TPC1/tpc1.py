@@ -1,4 +1,3 @@
-#idade,sexo,tensão,colesterol,batimento,temDoença
 from tabulate import tabulate
 import matplotlib as plt
 
