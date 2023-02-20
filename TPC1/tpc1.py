@@ -2,15 +2,17 @@
 from tabulate import tabulate
 import matplotlib as plt
 
+def add_dict(d, v):
+    if v in d:
+        d[v] += 1
+    else: d[v] = 1
+    
 # Creates a gender distribution
 def gender_dist(data):
     d = {}
     for l in data:
         if int(l[-1]) == 1:
-            if l[1] in d:
-                d[l[1]] += 1
-            else:
-                d[l[1]] = 1
+            add_dict(d, l[1])
     return d
 
 def get_interval(value, k):
@@ -25,10 +27,7 @@ def age_dist(data, k):
         age = int(l[0])
         s = get_interval(age, k)
         if int(l[-1]) == 1:
-            if s in d:
-                d[s] += 1
-            else:
-                d[s] = 1
+            add_dict(d, s)
     return d
 
 # Creates a cholesterol distribution, with a given k as an age interval
@@ -38,9 +37,7 @@ def cholesterol_dist(data, k):
         cholesterol = int(l[0])
         s = get_interval(cholesterol, k)
         if int(l[-1]) == 1:
-            if s in d:
-                d[s] += 1
-            else: d[s] = 1
+            add_dict(d, s)
     return d
 
 
@@ -60,7 +57,7 @@ data = []
 with open("myheart.csv", 'r') as file:
     for l in file:
         row = []
-        for param in l.split(','):
+        for param in l.strip().split(','):
             row.append(param)
         data.append(row)
     data.pop(0)
