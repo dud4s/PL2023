@@ -31,7 +31,21 @@ def display_dist(d, headers):
     all_data.sort(key=lambda x: x[1], reverse=True)
     headers.append("rf (%)")
     print(tabulate(all_data, headers=headers, tablefmt='grid'))
+
+def draw_table(d, headers):
     
+    total = sum(d.values())
+    keys = d.keys()
+    values = [d[k] for k in keys]
+    rfs = [round(d[k] / total * 100, 2) for k in keys]
+     
+    print(draw_columns(headers))
+
+def draw_columns(headers):
+    sb = "+"
+    for header in headers:
+        sb += '-' * (len(header) + 6) + '+'
+    return sb
 
 data = []
 with open("myheart.csv", 'r') as file:
@@ -48,7 +62,8 @@ print("                   -----------")
 while True:
     op = int(input('Type of Distribution:\n1 - Gender\n2 - Age\n3 - Cholesterol\n4 - Exit\nOption: '))
     if op == 1:
-        display_dist(create_dist_by_column(data, 1, 0), ['Gender', 'Number of ill persons (af)'])
+        #display_dist(create_dist_by_column(data, 1, 0), ['Gender', 'Number of ill persons (af)'])
+        draw_table(create_dist_by_column(data, 1, 0), ['Gender', 'Number of ill persons (af)'])
     elif op == 2:
         display_dist(create_dist_by_column(data, 0, 5), ['Age', 'Number of ill persons (af)'])
     elif op == 3:
