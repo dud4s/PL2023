@@ -64,11 +64,6 @@ def toJSON():
         json.dump(d, file, indent=4)
         print("JSON created!")
 
-
-text = ["575::1900-11-08::Aarao Pereira Silva::Antonio Pereira Silva::Francisca Campos Silva::::",
-        "575::2000-11-08::Aarao ::Antonio Pereira Silva::Francisca Campos Silva::::",
-        "575::1918-11-08::Aarao ::Antonio Pereira Silva::Francisca Campos Silva::::"]
-
 file = open("processos.txt", 'r')
  
 p = re.compile('(?P<Folder>\d+)'
@@ -86,9 +81,12 @@ p = re.compile('(?P<Folder>\d+)'
                )
 
 cases = [ x.groupdict() for line in file.readlines() if (x := p.match(line))]
-#cases = [ x.groupdict() for line in text if (x := p.match(line))]
 
-kinship()
+
+# nProcessAYear()
+# namesPerCentury()
+# kinship()
+# toJSON()
 
 file.close()
 
