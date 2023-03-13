@@ -115,7 +115,7 @@ Apesar de partilharem o mesmo apelido, a Sofia não é da mesma família do famo
 autor José Rodrigues dos Santos."""
 
 def ex3(texto):
-  return re.sub(r"([A-Z]\w+)(\s([A-Z]\w+|d[oa]s?))*\s([A-Z]\w+)", r"\4, \1", texto)
+  return re.sub(r"([A-Z]\w+)(\s+([A-Z]\w+|d[oae]s?))*\s+([A-Z]\w+)", r"\4, \1", texto)
 
 print(ex3(texto))
 
@@ -200,8 +200,12 @@ Seria para [VERBO INFINITIVO]? Tentaram perguntar a [NOME DE PESSOA FAMOSA], que
 Desanimados, pegaram no objeto e deixaram-no no [NOME DE LOCAL MASCULINO] mais próximo. 
 Talvez os [NOME PLURAL MASCULINO] de lá conseguissem encontrar alguma utilidade para aquilo."""
 
-# ...
+def preenche_texto(m):
+    t = input(f"Da-me um(a) {m.group(1)}: ")
+    return t
 
+x = re.sub(r"/[[^/]]+/]", preenche_texto, texto)
+print(x)
 """## Exercício 8 - Remoção de repetidos
 
 Escreve um filtro de texto que sempre que encontrar no texto fonte uma palavra repetida elimina as repetições, ou seja, substitui a lista de palavras por 1 só palavra.
